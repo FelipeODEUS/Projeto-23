@@ -35,7 +35,7 @@ function setup() {
 	World.add(world, packageBody);
 	
 
-	//Criar Solo
+	//Create a Ground
 	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
  	World.add(world, ground);
 
@@ -61,9 +61,8 @@ function setup() {
  	boxRightBody = Bodies.rectangle(boxPosition+200-20 , boxY, 20,100 , {isStatic:true} );
  	World.add(world, boxRightBody);
 
-	Engine.run(engine);
 
-	
+	Engine.run(engine);
   
 }
 
@@ -71,18 +70,6 @@ function setup() {
 function draw() {
   rectMode(CENTER);
   background(0);
-
-  if(keyCode === LEFT_ARROW){
-	helicopterSprite.x = helicopterSprite.x - 20;
-}
-
-  Matter.Body.translate(packageBody, {x: 0, y:0});
-
-  if(keyCode === DOWN_ARROW){
-	  Matter.Body.setStatic(packageBody, false);
-  }
-
-
  
   packageSprite.x= packageBody.position.x 
   packageSprite.y= packageBody.position.y 
@@ -92,4 +79,23 @@ function draw() {
   
   
  
+}
+
+function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+
+    helicopterSprite.x=helicopterSprite.x-20;    
+    translation={x:-20,y:0}
+    Matter.Body.translate(packageBody, translation)
+
+
+  } else if (keyCode === RIGHT_ARROW) {
+    helicopterSprite.x=helicopterSprite.x+20;
+    translation={x:20,y:0}
+    Matter.Body.translate(packageBody, translation)
+  }
+  else if (keyCode === DOWN_ARROW) {
+    Matter.Body.setStatic(packageBody,false);
+    
+  }
 }
